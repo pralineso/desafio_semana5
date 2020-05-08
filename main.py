@@ -77,19 +77,10 @@ def get_sample(df, col_name, n=100, seed=42):
 
 # ## Inicia sua análise a partir daqui
 
-# In[49]:
+# In[73]:
 
 
 # Sua análise começa aqui.
-amostra = get_sample(athletes,"height",3000)
-resultado = list(sct.shapiro(amostra)) 
-#teste "verifica" se os dados vem de uma distribuiçao normal
-#Wcalculado < Wα
-#(W_Calculado, p-value)
-resultado[1]<0.05
-#se deu falso é pq nao é uma distribuiçao normal
-#sm.qqplot(amostra, fit=True, line="45");
-#sns.distplot(amostra, kde=False, bins=25, hist_kws={"density": True});
 
 
 # ## Questão 1
@@ -106,17 +97,20 @@ def q1():
     #teste "verifica" se os dados vem de uma distribuiçao normal
     #Wcalculado < Wα
     #(W_Calculado, p-value)
-    return resultado[1]<0.05
+    #pra porder ser considerado normal o p-value tem que ser menor do que 
+    return bool(resultado[1]>0.05)
     #se deu falso é pq nao é uma distribuiçao normal
+    #Quando o p-value for maior que 0,05 (p > 0.05) a hipótese nula (dos dados seguirem uma distribuição normal) é aceita.
     #sm.qqplot(amostra, fit=True, line="45");
     #sns.distplot(amostra, kde=False, bins=25, hist_kws={"density": True});
+
     pass
 
 
 # __Para refletir__:
 # 
-# * Plote o histograma dessa variável (com, por exemplo, `bins=25`). A forma do gráfico e o resultado do teste são condizentes? Por que? **aparentemente sim, porque ele da um histograma no estilo de uma distribuiçao normal mas aparentemente o p-value é menor do que 0.05**
-# * Plote o qq-plot para essa variável e a analise. **no qq-plot deu uma grande parte na linha**
+# * Plote o histograma dessa variável (com, por exemplo, `bins=25`). A forma do gráfico e o resultado do teste são condizentes? Por que? **nao achei nada condizente, porque ele da um histograma no estilo de uma distribuiçao normal mas aparentemente o p-value é maior do que 0.05**
+# * Plote o qq-plot para essa variável e a analise.**tbm nao entendo  pq q o qq-plot deu uma grande parte na linha **
 # * Existe algum nível de significância razoável que nos dê outro resultado no teste? (Não faça isso na prática. Isso é chamado _p-value hacking_, e não é legal).**sim, se for 0.0000005**
 
 # ## Questão 2
@@ -128,28 +122,37 @@ def q1():
 
 def q2():
     # Retorne aqui o resultado da questão 2.
+    amostra = get_sample(athletes,"height",3000)
+    resultado = sct.jarque_bera(amostra)
+    return bool(resultado[1]>0.05)
     pass
 
 
 # __Para refletir__:
 # 
-# * Esse resultado faz sentido?
+# * Esse resultado faz sentido? **ainda nao**
 
 # ## Questão 3
 # 
 # Considerando agora uma amostra de tamanho 3000 da coluna `weight` obtida com a função `get_sample()`. Faça o teste de normalidade de D'Agostino-Pearson utilizando a função `scipy.stats.normaltest()`. Podemos afirmar que os pesos vêm de uma distribuição normal ao nível de significância de 5%? Responda com um boolean (`True` ou `False`).
 
-# In[8]:
+# In[68]:
 
 
 def q3():
     # Retorne aqui o resultado da questão 3.
+    amostra = get_sample(athletes,"weight",3000)
+    resultado = sct.normaltest(amostra)
+    #sns.distplot(amostra, kde=False, bins=25, hist_kws={"density": True});
+    #sm.qqplot(amostra, fit=True, line="45");
+    return bool(resultado[1]>0.05)
+    #resultado
     pass
 
 
 # __Para refletir__:
 # 
-# * Plote o histograma dessa variável (com, por exemplo, `bins=25`). A forma do gráfico e o resultado do teste são condizentes? Por que?
+# * Plote o histograma dessa variável (com, por exemplo, `bins=25`). A forma do gráfico e o resultado do teste são condizentes? Por que? **agora aparentemente a forma do grafio e o resultado do teste sao condizentes**
 # * Um _box plot_ também poderia ajudar a entender a resposta.
 
 # ## Questão 4
