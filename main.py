@@ -196,9 +196,11 @@ def q5():
     usa_df = pd.DataFrame(aux_usa)
     #tive que tirar os nulos ...
     resultado = sct.ttest_ind(bra_df.dropna(), usa_df.dropna(),  equal_var = False)
-    return bool(resultado[1]<0.05)
+    return bool(resultado[1]>0.05)
     #se a estatística t for superior ao valor crítico, a diferença será significativa. 
     #Se sua estatística t for menor, os dois números serão indistinguíveis em termos estatísticos.
+    #Em vez de comparar a estatística t ao valor crítico, a maioria dos programas calcula o valor p e o compara ao nível alfa (o nível mais usado é 0,05). 
+    #Nesse caso, um valor p inferior ao seu nível alfa mostrará que os números são significativamente diferentes.
     #fonte: https://pt.surveymonkey.com/mp/t-tests-explained/?program=7013A000000mweBQAQ&utm_bu=CR&utm_campaign=71700000064157503&utm_adgroup=58700005705977647&utm_content=39700052004881803&utm_medium=cpc&utm_source=adwords&utm_term=p52004881803&utm_kxconfid=s4bvpi0ju&gclid=Cj0KCQjwhtT1BRCiARIsAGlY51K60WcsH-w6g41awwB9u0CgL7k9qXVWaR_fce6sXXa4eksDpoXYR2UaAjqBEALw_wcB
     pass
 
@@ -220,7 +222,7 @@ def q6():
     #tirando os nulos tbm...
     resultado = sct.ttest_ind(bra_df.dropna(), can_df.dropna(),  equal_var = False)
     #resultado
-    return bool(resultado[1]<0.05)
+    return bool(resultado[1]>0.05)
     pass
 
 
