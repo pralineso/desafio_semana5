@@ -11,7 +11,7 @@
 
 # ## _Setup_ geral
 
-# In[23]:
+# In[1]:
 
 
 import pandas as pd
@@ -22,7 +22,7 @@ import seaborn as sns
 import statsmodels.api as sm
 
 
-# In[7]:
+# In[2]:
 
 
 #%matplotlib inline
@@ -35,13 +35,13 @@ figsize(12, 8)
 sns.set()
 
 
-# In[8]:
+# In[3]:
 
 
 athletes = pd.read_csv("athletes.csv")
 
 
-# In[9]:
+# In[4]:
 
 
 def get_sample(df, col_name, n=100, seed=42):
@@ -77,7 +77,7 @@ def get_sample(df, col_name, n=100, seed=42):
 
 # ## Inicia sua análise a partir daqui
 
-# In[73]:
+# In[8]:
 
 
 # Sua análise começa aqui.
@@ -164,13 +164,19 @@ def q3():
 
 def q4():
     # Retorne aqui o resultado da questão 4.
+    amostra = get_sample(athletes,"weight",3000)
+    amostra_log = np.log(amostra)
+    resultado_log = sct.normaltest(amostra_log)
+    return bool(resultado_log[1]>0.05)
+    #sns.distplot(amostra_log, kde=False, bins=25, hist_kws={"density": True});
+    #sm.qqplot(amostra_log, fit=True, line="45");
     pass
 
 
 # __Para refletir__:
 # 
-# * Plote o histograma dessa variável (com, por exemplo, `bins=25`). A forma do gráfico e o resultado do teste são condizentes? Por que?
-# * Você esperava um resultado diferente agora?
+# * Plote o histograma dessa variável (com, por exemplo, `bins=25`). A forma do gráfico e o resultado do teste são condizentes? Por que? **se levar em consideraçao os resultado anteriores foi condizente com a tranformacao**
+# * Você esperava um resultado diferente agora? **sim, esperava mas ainda nao aconteceu o q eu gostaria de ter visto**
 
 # > __Para as questão 5 6 e 7 a seguir considere todos testes efetuados ao nível de significância de 5%__.
 
