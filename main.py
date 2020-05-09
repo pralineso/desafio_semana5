@@ -77,7 +77,7 @@ def get_sample(df, col_name, n=100, seed=42):
 
 # ## Inicia sua análise a partir daqui
 
-# In[8]:
+# In[102]:
 
 
 # Sua análise começa aqui.
@@ -189,6 +189,17 @@ def q4():
 
 def q5():
     # Retorne aqui o resultado da questão 5.
+    aux_bra = athletes['height'][athletes['nationality']=='BRA']
+    aux_usa = athletes['height'][athletes['nationality']=='USA']
+
+    bra_df = pd.DataFrame(aux_bra)
+    usa_df = pd.DataFrame(aux_usa)
+    #tive que tirar os nulos ...
+    resultado = sct.ttest_ind(bra_df.dropna(), usa_df.dropna(),  equal_var = False)
+    return bool(resultado[1]<0.05)
+    #se a estatística t for superior ao valor crítico, a diferença será significativa. 
+    #Se sua estatística t for menor, os dois números serão indistinguíveis em termos estatísticos.
+    #fonte: https://pt.surveymonkey.com/mp/t-tests-explained/?program=7013A000000mweBQAQ&utm_bu=CR&utm_campaign=71700000064157503&utm_adgroup=58700005705977647&utm_content=39700052004881803&utm_medium=cpc&utm_source=adwords&utm_term=p52004881803&utm_kxconfid=s4bvpi0ju&gclid=Cj0KCQjwhtT1BRCiARIsAGlY51K60WcsH-w6g41awwB9u0CgL7k9qXVWaR_fce6sXXa4eksDpoXYR2UaAjqBEALw_wcB
     pass
 
 
@@ -201,6 +212,15 @@ def q5():
 
 def q6():
     # Retorne aqui o resultado da questão 6.
+    aux_bra = athletes['height'][athletes['nationality']=='BRA']
+    aux_can = athletes['height'][athletes['nationality']=='CAN']
+
+    bra_df = pd.DataFrame(aux_bra)
+    can_df = pd.DataFrame(aux_can)
+    #tirando os nulos tbm...
+    resultado = sct.ttest_ind(bra_df.dropna(), can_df.dropna(),  equal_var = False)
+    #resultado
+    return bool(resultado[1]<0.05)
     pass
 
 
@@ -213,6 +233,15 @@ def q6():
 
 def q7():
     # Retorne aqui o resultado da questão 7.
+    aux_usa = athletes['height'][athletes['nationality']=='USA']
+    aux_can = athletes['height'][athletes['nationality']=='CAN']
+
+    usa_df = pd.DataFrame(aux_usa)
+    can_df = pd.DataFrame(aux_can)
+    # nulos ...
+    resultado = sct.ttest_ind(usa_df.dropna(), can_df.dropna(),  equal_var = False)
+    #resultado
+    return round(float(resultado[1]),8)
     pass
 
 
